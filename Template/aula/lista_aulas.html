@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Aulas</title>
+</head>
+<body>
+    <h1>Lista de Aulas</h1>
+    <ul>
+        {% for aula in aulas %}
+            <li>{{ aula.Nome }} - {{ aula.Horario }} - {{ aula.Dia }} - {{ aula.Serie }} - {{ aula.Repeticao }} - {{ aula.Categoria }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Avaliações Médicas</title>
+</head>
+<body>
+    <h1>Lista de Avaliações Médicas</h1>
+    <ul>
+        {% for avaliacao_medica in avaliacoes_medicas %}
+            <li>{{ avaliacao_medica.Medico }} - {{ avaliacao_medica.Data_Exame }} - {{ avaliacao_medica.Catetgoria_Exame }} - {{ avaliacao_medica.Resultado }} - {{ avaliacao_medica.Atestado_Medico }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

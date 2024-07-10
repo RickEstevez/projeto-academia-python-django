@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Planos e Descontos</title>
+</head>
+<body>
+    <h1>Lista de Planos e Descontos</h1>
+    <ul>
+        {% for planos_desconto in planos_descontos %}
+            <li>{{ planos_desconto.Nome }} - {{ planos_desconto.Descricao }} - {{ planos_desconto.Preco }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

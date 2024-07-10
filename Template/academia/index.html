@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia - Página Inicial</title>
+    <!-- Incluir Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Academia Paulo Maromba</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Produtos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Aulas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Cadastro</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Banner principal -->
+<section class="jumbotron text-center">
+  <div class="container">
+      <img src="{% static 'img/06e8a1f98c9d788b1490b3631357570b.jpg' %}" class="img-fluid" alt="Banner Academia">
+    <h1 class="jumbotron-heading">Bem-vindo à Academia Paulo Maromba</h1>
+    <p class="lead text-muted">Transforme seu corpo e sua mente conosco. Conheça nossos produtos e serviços!</p>
+    <p>
+      <a href="#produtos" class="btn btn-primary my-2">Nossos Produtos</a>
+      <a href="#aulas" class="btn btn-secondary my-2">Nossas Aulas</a>
+    </p>
+  </div>
+</section>
+
+<!-- Seção de Produtos -->
+<section id="produtos" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Nossos Produtos</h2>
+        <div class="row">
+            <!-- Iteração sobre os produtos -->
+            {% for produto in produtos %}
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" src="{% static 'img/produto_placeholder.jpg' %}" alt="{{ produto.Nome }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ produto.Nome }}</h5>
+                        <p class="card-text">{{ produto.Descricao }}</p>
+                        <p class="card-text">R$ {{ produto.Preco }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'detalhes_produto' produto.id %}" class="btn btn-sm btn-outline-secondary">Ver detalhes</a>
+                                <button type="button" class="btn btn-sm btn-outline-primary">Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Seção de Aulas -->
+<section id="aulas" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Nossas Aulas</h2>
+        <div class="row">
+            <!-- Iteração sobre as aulas -->
+            {% for aula in aulas %}
+            <div class="col-md-6">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ aula.Nome }}</h5>
+                        <p class="card-text">Horário: {{ aula.Horario }}, Dia: {{ aula.Dia }}</p>
+                        <p class="card-text">Série: {{ aula.Serie }}, Repetições: {{ aula.Repeticao }}</p>
+                        <p class="card-text">Categoria: {{ aula.Categoria }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-sm btn-outline-secondary">Detalhes</a>
+                                <button type="button" class="btn btn-sm btn-outline-primary">Inscrever-se</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Formulário de Cadastro de Cliente -->
+<section class="bg-dark text-white py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Cadastre-se na Academia</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="POST" action="{% url 'lista_clientes' %}" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                        <div class="invalid-feedback">
+                            Por favor, informe seu nome.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">
+                            Por favor, informe um e-mail válido.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone" required>
+                        <div class="invalid-feedback">
+                            Por favor, informe seu telefone.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endereco">Endereço</label>
+                        <input type="text" class="form-control" id="endereco" name="endereco" required>
+                        <div class="invalid-feedback">
+                            Por favor, informe seu endereço.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Rodapé -->
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="#">Voltar ao topo</a>
+    </p>
+    <p>&copy; 2024 Academia Awesome. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- Scripts do Bootstrap (jQuery e Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
